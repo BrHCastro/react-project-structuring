@@ -36,7 +36,10 @@ export function SearchProductForm() {
   }
 
   return (
-    <InputSearchWrapper onSubmit={handleSubmit(handleSearch)}>
+    <InputSearchWrapper
+      onSubmit={handleSubmit(handleSearch)}
+      onBlur={handleSubmit(handleSearch)}
+    >
       <InputSearch
         placeholder="Buscar filme pelo nome"
         {...register('search')}
