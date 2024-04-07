@@ -6,7 +6,7 @@ export const defaultTheme = {
     neutral: {
       300: '#C0C0C0',
       400: '#999999',
-      900: '#3333',
+      900: '#333333',
     },
 
     'official-blue': '#2F2E41',
