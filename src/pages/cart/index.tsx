@@ -4,7 +4,7 @@ export function Cart() {
   return (
     <>
       <Helmet title="Cart" />
-      <h1>Home</h1>
+      <h1>Cart</h1>
     </>
   )
 }

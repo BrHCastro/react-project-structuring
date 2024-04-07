@@ -11,6 +11,7 @@ export const defaultTheme = {
 
     'official-blue': '#2F2E41',
     'blue-transition': '#009EDD',
+    'blue-transition:hover': '#0073A1',
 
     success: '#039B00',
   },

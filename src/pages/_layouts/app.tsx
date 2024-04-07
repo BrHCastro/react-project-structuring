@@ -1,10 +1,15 @@
 import { Outlet } from 'react-router-dom'
 
+import { Header } from '../../components/header'
+import { LayoutWrapper } from './styles'
+
 export function AppLayout() {
   return (
-    <div>
-      <h1>App Layout</h1>
-      <Outlet />
-    </div>
+    <LayoutWrapper>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </LayoutWrapper>
   )
 }
