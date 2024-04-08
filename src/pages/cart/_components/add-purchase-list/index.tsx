@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { TrashIcon } from '@/components/icons/trash-icon'
 import { OnlyIconButton } from '@/components/only-icon-button'
 import { Separator } from '@/components/ui/separator'
+import { useCart } from '@/contexts/use-cart'
 import { currencyFormatter } from '@/utils/currency-formatter'
 
 import { CurrencyAmount } from '../currency-amount'
@@ -17,15 +18,26 @@ import {
 } from './styles'
 
 interface AddPurchaseListProps {
+  onFinishOrder: () => void
   products: {
     id: string
     image: string
     price: number
     title: string
+    amount: number
   }[]
 }
 
-export function AddPurchaseList({ products }: AddPurchaseListProps) {
+export function AddPurchaseList({
+  products,
+  onFinishOrder,
+}: AddPurchaseListProps) {
+  const { removeCartItem } = useCart()
+  const total = products.reduce(
+    (acc, product) => acc + product.price * product.amount,
+    0,
+  )
+
   return (
     <AddPurchaseListContainer>
       <AddPurchaseListGrid>
@@ -35,6 +47,8 @@ export function AddPurchaseList({ products }: AddPurchaseListProps) {
       </AddPurchaseListGrid>
       <AddPurchaseListGrid>
         {products.map((product) => {
+          const subtotal = product.price * product.amount
+
           return (
             <Fragment key={product.id}>
               <AddPurchaseListItem>
@@ -48,17 +62,19 @@ export function AddPurchaseList({ products }: AddPurchaseListProps) {
               </AddPurchaseListItem>
 
               <AddPurchaseListItem>
-                <QuantityForm />
+                <QuantityForm productId={Number(product.id)} />
               </AddPurchaseListItem>
 
               <AddPurchaseListItem>
-                <CurrencyAmount>
-                  {currencyFormatter(product.price)}
-                </CurrencyAmount>
+                <CurrencyAmount>{currencyFormatter(subtotal)}</CurrencyAmount>
               </AddPurchaseListItem>
 
               <AddPurchaseListItem>
-                <OnlyIconButton title="remover">
+                <OnlyIconButton
+                  title="remover"
+                  type="button"
+                  onClick={() => removeCartItem(Number(product.id))}
+                >
                   <TrashIcon />
                   <span>Remover</span>
                 </OnlyIconButton>
@@ -71,11 +87,13 @@ export function AddPurchaseList({ products }: AddPurchaseListProps) {
       <Separator />
 
       <AddPurchaseListFooter>
-        <PurchaseButton>Finalizar pedido</PurchaseButton>
+        <PurchaseButton onClick={onFinishOrder}>
+          Finalizar pedido
+        </PurchaseButton>
 
         <div>
           <small>Total</small>
-          <span>{currencyFormatter(29.9)}</span>
+          <span>{currencyFormatter(total)}</span>
         </div>
       </AddPurchaseListFooter>
     </AddPurchaseListContainer>

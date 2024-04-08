@@ -1,6 +1,7 @@
 import { TrashIcon } from '@/components/icons/trash-icon'
 import { OnlyIconButton } from '@/components/only-icon-button'
 import { Separator } from '@/components/ui/separator'
+import { useCart } from '@/contexts/use-cart'
 import { currencyFormatter } from '@/utils/currency-formatter'
 
 import { CurrencyAmount } from '../currency-amount'
@@ -13,21 +14,31 @@ import {
 } from './styles'
 
 interface AddPurchaseListMobileProps {
+  onFinishOrder: () => void
   products: {
     id: string
     image: string
     price: number
     title: string
+    amount: number
   }[]
 }
 
 export function AddPurchaseListMobile({
   products,
+  onFinishOrder,
 }: AddPurchaseListMobileProps) {
+  const { removeCartItem } = useCart()
+  const total = products.reduce(
+    (acc, product) => acc + product.price * product.amount,
+    0,
+  )
+
   return (
     <AddPurchaseListMobileContainer>
       <div>
         {products.map((product) => {
+          const subtotal = product.price * product.amount
           return (
             <AddPurchaseListMobileItem key={product.id}>
               <img src={product?.image} alt={product?.title} />
@@ -37,16 +48,22 @@ export function AddPurchaseListMobile({
                   <CurrencyAmount>
                     {currencyFormatter(product.price)}
                   </CurrencyAmount>
-                  <OnlyIconButton title="remover">
+                  <OnlyIconButton
+                    title="remover"
+                    type="button"
+                    onClick={() => removeCartItem(Number(product.id))}
+                  >
                     <TrashIcon />
                     <span>Remover</span>
                   </OnlyIconButton>
                 </div>
                 <div className="product-info-footer">
-                  <QuantityForm />
+                  <QuantityForm productId={Number(product.id)} />
                   <div>
                     <span>Subtotal</span>
-                    <CurrencyAmount>{currencyFormatter(29.9)}</CurrencyAmount>
+                    <CurrencyAmount>
+                      {currencyFormatter(subtotal)}
+                    </CurrencyAmount>
                   </div>
                 </div>
               </div>
@@ -60,10 +77,12 @@ export function AddPurchaseListMobile({
       <AddPurchaseListMobileFooter>
         <div>
           <span>Total</span>
-          <span>R$ 29,90</span>
+          <span>{currencyFormatter(total)}</span>
         </div>
 
-        <PurchaseButtonMobile>Finalizar pedido</PurchaseButtonMobile>
+        <PurchaseButtonMobile type="button" onClick={onFinishOrder}>
+          Finalizar pedido
+        </PurchaseButtonMobile>
       </AddPurchaseListMobileFooter>
     </AddPurchaseListMobileContainer>
   )

@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
+import { CartProvider } from './contexts/use-cart'
 import { queryClient } from './lib/react-query'
 import { router } from './routes'
 import { GlobalStyle } from './styles/global'
@@ -14,7 +15,9 @@ export function App() {
       <HelmetProvider>
         <Helmet titleTemplate="WeMovies | %s" />
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <CartProvider>
+            <RouterProvider router={router} />
+          </CartProvider>
         </QueryClientProvider>
       </HelmetProvider>
       <GlobalStyle />

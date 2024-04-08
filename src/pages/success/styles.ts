@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import { Box } from '@/components/ui/box'
 import { Button } from '@/components/ui/button'
 
-export const EmptyStateContainer = styled(Box)`
+import { SuccessStateFigure } from './_components/success-state-figure'
+
+export const SuccessContainer = styled(Box)`
   width: 100%;
-  height: 100%;
   padding: 4rem;
 
   display: flex;
@@ -20,22 +21,20 @@ export const EmptyStateContainer = styled(Box)`
     font-weight: 700;
     color: ${({ theme }) => theme.colors['official-blue']};
   }
+`
 
-  div {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+export const SuccessFigure = styled(SuccessStateFigure)`
+  width: 14.875rem;
+  height: 15.4825rem;
+
+  @media (min-width: 640px) {
+    width: 18.435rem;
+    height: 19.1875rem;
   }
 `
 
-export const EmptyStateSeparator = styled.div`
-  width: 100%;
-  max-width: 447px;
-  height: 1.36px;
-  background: ${({ theme }) => theme.colors['official-blue']};
-`
-export const EmptyStateRefreshButton = styled(Button)`
+export const SuccessRefreshButton = styled(Button)`
   width: 10.8125rem;
   height: 2.5rem;
+  text-transform: uppercase;
 `

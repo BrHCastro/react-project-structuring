@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { EmptyStateFigure } from './empty-state-figure'
 import {
   EmptyStateContainer,
@@ -6,6 +8,8 @@ import {
 } from './styles'
 
 export function EmptyState() {
+  const navigate = useNavigate()
+
   return (
     <EmptyStateContainer>
       <span>Parece que não há nada por aqui :(</span>
@@ -13,11 +17,8 @@ export function EmptyState() {
         <EmptyStateFigure />
         <EmptyStateSeparator />
       </div>
-      <EmptyStateRefreshButton
-        type="button"
-        onClick={() => window.location.reload()}
-      >
-        Recarregar página
+      <EmptyStateRefreshButton type="button" onClick={() => navigate('/')}>
+        Voltar para tela inicial
       </EmptyStateRefreshButton>
     </EmptyStateContainer>
   )

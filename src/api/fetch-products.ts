@@ -21,6 +21,10 @@ export async function fetchProducts({ search }: FetchProductsRequest) {
 
   const response = await api.get<FetchProductsResponse[]>('/products')
 
+  if (!response.data) {
+    return []
+  }
+
   if (search !== null) {
     return response.data.filter((product) =>
       normalizeText(product.title).includes(normalizeText(search)),
