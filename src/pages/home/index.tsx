@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { fetchProducts } from '@/api/fetch-products'
 import { CartIcon } from '@/components/icons/cart-icon'
+import { Loading } from '@/components/loading'
 import { SearchProductForm } from '@/components/search-product-form'
 import { useCart } from '@/contexts/use-cart'
 import { currencyFormatter } from '@/utils/currency-formatter'
@@ -12,6 +13,7 @@ import { currencyFormatter } from '@/utils/currency-formatter'
 import { EmptyState } from './_components/empty-state'
 import {
   HomeContainer,
+  LoadingContainer,
   MoviesCard,
   MoviesCardPurchaseButton,
   MoviesListWrapper,
@@ -62,6 +64,14 @@ export function Home() {
       }
     })
   }, [cartItems, products])
+
+  if (isFetching) {
+    return (
+      <LoadingContainer>
+        <Loading />
+      </LoadingContainer>
+    )
+  }
 
   return (
     <HomeContainer>

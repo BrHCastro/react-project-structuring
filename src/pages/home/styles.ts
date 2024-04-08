@@ -62,3 +62,13 @@ export const MoviesCardPurchaseButton = styled(Button)`
     gap: 0.2125rem;
   }
 `
+
+export const LoadingContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 640px) {
+    margin-top: 2.5rem;
+  }
+`
