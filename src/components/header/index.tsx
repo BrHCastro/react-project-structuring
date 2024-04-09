@@ -2,7 +2,7 @@ import { useCart } from '@/contexts/use-cart'
 
 import { AppLogo } from '../app-logo'
 import { BagIcon } from '../icons/bag-icon'
-import { CartContainer, CartItemLink, HeaderContainer } from './styles'
+import { CartContainer, HeaderContainer } from './styles'
 
 export function Header() {
   const { amount } = useCart()
@@ -11,10 +11,10 @@ export function Header() {
     <HeaderContainer>
       <AppLogo to="/">WeMovies</AppLogo>
 
-      <CartContainer>
+      <CartContainer to="/cart">
         <div>
-          <span>Meu Carrinho</span>
-          <CartItemLink to="/cart">{amount} items</CartItemLink>
+          <strong>Meu Carrinho</strong>
+          <span>{amount} items</span>
         </div>
 
         <BagIcon />

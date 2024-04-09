@@ -65,25 +65,19 @@ export function Home() {
     })
   }, [cartItems, products])
 
-  if (isFetching) {
-    return (
-      <LoadingContainer>
-        <Loading />
-      </LoadingContainer>
-    )
-  }
-
   return (
     <HomeContainer>
       <Helmet title="Home" />
+      <SearchProductForm />
 
-      {isError ||
-      (!isFetching && products?.length === 0 && !params.get('search')) ? (
+      {isError || products?.length === 0 ? (
         <EmptyState />
+      ) : isFetching ? (
+        <LoadingContainer>
+          <Loading />
+        </LoadingContainer>
       ) : (
         <>
-          <SearchProductForm />
-
           <MoviesListWrapper>
             {productFormatted?.map((item) => {
               return (

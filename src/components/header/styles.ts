@@ -10,7 +10,7 @@ export const HeaderContainer = styled.header`
   padding-block: 1.5rem;
 `
 
-export const CartContainer = styled.div`
+export const CartContainer = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -20,7 +20,7 @@ export const CartContainer = styled.div`
     flex-direction: column;
     align-items: end;
 
-    span {
+    strong {
       display: none;
       font-weight: 600;
       font-size: 0.875rem;
@@ -29,11 +29,11 @@ export const CartContainer = styled.div`
         display: block;
       }
     }
-  }
-`
 
-export const CartItemLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.neutral[400]};
-  font-weight: 600;
-  font-size: 0.75rem;
+    span {
+      color: ${({ theme }) => theme.colors.neutral[400]};
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+  }
 `

@@ -11,3 +11,13 @@ export const CartContainer = styled.div`
     gap: 1.5rem;
   }
 `
+
+export const LoadingContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  @media (min-width: 640px) {
+    margin-top: 2.5rem;
+  }
+`
